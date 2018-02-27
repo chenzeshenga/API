@@ -1,14 +1,15 @@
-package com.chenzeshenga.entity;
+package com.chenzeshenga;
 
 import java.util.Date;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
 
 import redis.clients.jedis.Jedis;
 
 @SpringBootApplication
-public class Application {
+public class Main {
 
 	public static void main(String[] args) {
 		RestTemplate restTemplate = new RestTemplate();
@@ -28,5 +29,10 @@ public class Application {
 		jedis.set(new Date().toString(), str);
 		// 查看服务是否运行
 		System.out.println("服务正在运行: " + jedis.ping());
+	}
+	
+	@Bean
+	public RestTemplate restTemplate() {
+		return new RestTemplate();
 	}
 }
