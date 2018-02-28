@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.annotation.PostConstruct;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -19,6 +20,8 @@ import redis.clients.jedis.Jedis;
 
 @Component
 public class TotalIndexLoader {
+
+	private static Logger logger = Logger.getLogger(TotalIndexLoader.class);
 
 	@Autowired
 	private RestTemplate restTemplate;
@@ -35,25 +38,25 @@ public class TotalIndexLoader {
 		String reg1 = "\"" + "," + "\"";
 		String rep1 = "\"" + ";" + "\"";
 		str = str.replaceAll("\\(\\[", "").replaceAll("\\]\\)", "").replaceAll(reg1, rep1);
-		String[] strs=str.split(";");
-		
+		String[] strs = str.split(";");
+
 		for (int i = 0; i < strs.length; i++) {
-			String[] childs=strs[i].replaceAll("\"", "").split(",");
-				Map<String, String > map =new HashMap<String, String>();
-				map.put("indexcode", childs[1]);
-				map.put("indexname", childs[2]);
-				map.put("latestprice", childs[3]);
-				map.put("raisequantity", childs[4]);
-				map.put("raiserate", childs[5]);
-				map.put("openprice", childs[6]);
-				map.put("highestprice", childs[7]);
-				map.put("lowestprice", childs[8]);
-				map.put("closeprice", childs[9]);
-				map.put("lastcloseprice", childs[10]);
-				map.put("dealamount", childs[11]);
-				map.put("dealquantity", childs[12]);
-				map.put("timestamp", new Date().toString());
-				jedis.hmset(childs[1], map);
+			String[] childs = strs[i].replaceAll("\"", "").split(",");
+			Map<String, String> map = new HashMap<String, String>();
+			map.put("bondcode", childs[1]);
+			map.put("bondname", childs[2]);
+			map.put("latestprice", childs[3]);
+			map.put("raisequantity", childs[4]);
+			map.put("raiserate", childs[5]);
+			map.put("openprice", childs[6]);
+			map.put("highestprice", childs[7]);
+			map.put("lowestprice", childs[8]);
+			map.put("dealamount", childs[9]);
+			map.put("dealquantity", childs[10]);
+			map.put("timestamp", new Date().toString());
+			jedis.hmset(childs[1], map);
+			logger.info(childs[1]);
+			logger.info(map);
 		}
 	}
 }

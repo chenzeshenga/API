@@ -14,7 +14,7 @@ import org.springframework.web.client.RestTemplate;
 import redis.clients.jedis.Jedis;
 
 @Component
-public class GovernmentBondShanghaiLoader {
+public class CorpBondShenzhenLoader {
 
 	@Autowired
 	private RestTemplate restTemplate;
@@ -25,8 +25,8 @@ public class GovernmentBondShanghaiLoader {
 	@PostConstruct
 	@Scheduled(fixedRate = 60 * 1000 * 1000)
 	public void init() {
-		String restAPI = "http://nufm.dfcfw.com/EM_Finance2014NumericApplication/JS.aspx?type=CT&cmd=C._DEBT_SH_G&sty=FCOIATA&sortType=(ChangePercent)&sortRule=-1&page=1&pageSize=20&token=7bc05d0d4c3c22ef9fca8c2a912d779c&jsName=quote_123&_g=0.628606915911589&_=1519746540141";
-		for (int i = 0; i < 10; i++) {
+		String restAPI = "http://nufm.dfcfw.com/EM_Finance2014NumericApplication/JS.aspx?type=CT&cmd=C._DEBT_SZ_Q&sty=FCOIATA&sortType=(ChangePercent)&sortRule=-1&page=1&pageSize=20&token=7bc05d0d4c3c22ef9fca8c2a912d779c&jsName=quote_123&_g=0.628606915911589&_=1519830628231";
+		for (int i = 0; i < 60; i++) {
 			String str = restTemplate.getForObject(restAPI.replace("page=1", "page=" + (i+1)), String.class);
 			String reg1 = "\"" + "," + "\"";
 			String rep1 = "\"" + ";" + "\"";
