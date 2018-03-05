@@ -6,7 +6,7 @@ import java.util.Map;
 
 import javax.annotation.PostConstruct;
 
-import org.apache.log4j.Logger;
+//import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -16,8 +16,6 @@ import redis.clients.jedis.Jedis;
 
 @Component
 public class GovernmentBondShanghaiLoader {
-
-	private static Logger logger = Logger.getLogger(GovernmentBondShanghaiLoader.class);
 
 	@Autowired
 	private RestTemplate restTemplate;
@@ -53,8 +51,7 @@ public class GovernmentBondShanghaiLoader {
 				map.put("dealquantity", childs[12]);
 				map.put("timestamp", new Date().toString());
 				jedis.hmset(childs[1], map);
-				logger.info(childs[1]);
-				logger.info(map);
+				System.out.println(map);
 			}
 			try {
 				Thread.sleep(1000);

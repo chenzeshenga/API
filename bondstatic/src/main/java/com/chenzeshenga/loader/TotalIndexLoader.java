@@ -7,7 +7,7 @@ import java.util.Map;
 
 import javax.annotation.PostConstruct;
 
-import org.apache.log4j.Logger;
+//import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -21,7 +21,6 @@ import redis.clients.jedis.Jedis;
 @Component
 public class TotalIndexLoader {
 
-	private static Logger logger = Logger.getLogger(TotalIndexLoader.class);
 
 	@Autowired
 	private RestTemplate restTemplate;
@@ -55,8 +54,7 @@ public class TotalIndexLoader {
 			map.put("dealquantity", childs[10]);
 			map.put("timestamp", new Date().toString());
 			jedis.hmset(childs[1], map);
-			logger.info(childs[1]);
-			logger.info(map);
+			System.out.println(map);
 		}
 	}
 }
