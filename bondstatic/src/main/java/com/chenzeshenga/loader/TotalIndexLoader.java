@@ -13,6 +13,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
+import com.chenzeshenga.util.DateUtil;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
@@ -20,7 +21,6 @@ import redis.clients.jedis.Jedis;
 
 @Component
 public class TotalIndexLoader {
-
 
 	@Autowired
 	private RestTemplate restTemplate;
@@ -42,18 +42,17 @@ public class TotalIndexLoader {
 		for (int i = 0; i < strs.length; i++) {
 			String[] childs = strs[i].replaceAll("\"", "").split(",");
 			Map<String, String> map = new HashMap<String, String>();
-			map.put("bondcode", childs[1]);
-			map.put("bondname", childs[2]);
-			map.put("latestprice", childs[3]);
-			map.put("raisequantity", childs[4]);
-			map.put("raiserate", childs[5]);
-			map.put("openprice", childs[6]);
-			map.put("highestprice", childs[7]);
-			map.put("lowestprice", childs[8]);
-			map.put("dealamount", childs[9]);
-			map.put("dealquantity", childs[10]);
+			map.put("indexcode", childs[1]);
+			map.put("indexname", childs[2]);
+			map.put("openprice", childs[3]);
+			map.put("lastdayprice", childs[4]);
+			map.put("latestprice", childs[5]);
+			map.put("raiseamount", childs[6]);
+			map.put("raiserate", childs[7]);
+			map.put("highestprice", childs[9]);
+			map.put("lowestprice", childs[10]);
 			map.put("timestamp", new Date().toString());
-			jedis.hmset(childs[1], map);
+			jedis.hmset(childs[1] + ":" + DateUtil.getDate(new Date()), map);
 			System.out.println(map);
 		}
 	}

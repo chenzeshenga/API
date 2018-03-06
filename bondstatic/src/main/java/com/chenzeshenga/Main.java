@@ -25,7 +25,7 @@ public class Main {
 
 	@Bean
 	public Jedis jedis() {
-		Jedis jedis = new Jedis("0.0.0.0");
+		Jedis jedis = new Jedis("47.93.248.132");
 		jedis.auth("Charlotte34");
 		return jedis;
 	}
