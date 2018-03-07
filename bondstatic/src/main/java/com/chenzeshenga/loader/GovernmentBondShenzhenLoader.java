@@ -12,6 +12,8 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
+import com.chenzeshenga.util.DateUtil;
+
 import redis.clients.jedis.Jedis;
 
 @Component
@@ -38,20 +40,14 @@ public class GovernmentBondShenzhenLoader {
 			for (int j = 0; j < strs.length; j++) {
 				String[] childs = strs[j].replaceAll("\"", "").split(",");
 				Map<String, String> map = new HashMap<String, String>();
-				map.put("indexcode", childs[1]);
-				map.put("indexname", childs[2]);
+				map.put("bondcode", childs[1]);
+				map.put("bondname", childs[2]);
+				map.put("openprice", childs[10]);
 				map.put("latestprice", childs[3]);
-				map.put("raisequantity", childs[4]);
-				map.put("raiserate", childs[5]);
-				map.put("openprice", childs[6]);
-				map.put("highestprice", childs[7]);
-				map.put("lowestprice", childs[8]);
-				map.put("closeprice", childs[9]);
-				map.put("lastcloseprice", childs[10]);
-				map.put("dealamount", childs[11]);
-				map.put("dealquantity", childs[12]);
+				map.put("highestprice", childs[11]);
+				map.put("lowestprice", childs[12]);
 				map.put("timestamp", new Date().toString());
-				jedis.hmset(childs[1], map);
+				jedis.hmset(childs[1]+":"+DateUtil.getDate(new Date()), map);
 				System.out.println(map);
 			}
 			try {

@@ -45,10 +45,7 @@ public class TotalIndexLoader {
 			map.put("indexcode", childs[1]);
 			map.put("indexname", childs[2]);
 			map.put("openprice", childs[3]);
-			map.put("lastdayprice", childs[4]);
 			map.put("latestprice", childs[5]);
-			map.put("raiseamount", childs[6]);
-			map.put("raiserate", childs[7]);
 			map.put("highestprice", childs[9]);
 			map.put("lowestprice", childs[10]);
 			map.put("timestamp", new Date().toString());
