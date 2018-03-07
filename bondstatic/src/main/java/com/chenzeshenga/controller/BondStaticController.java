@@ -30,17 +30,17 @@ public class BondStaticController {
 		result.append("[");
 		for (int j = 0; j < Integer.valueOf(days); j++) {
 			List<String> data = new ArrayList<String>();
-			data.add(DateUtil.getDate(new Date()));
-			List<String> value1 = jedis.hmget(indexcode + ":" + DateUtil.getDate(new Date(),j+1), "openprice");
+			data.add(DateUtil.getDate(new Date(), j + 1));
+			List<String> value1 = jedis.hmget(indexcode + ":" + DateUtil.getDate(new Date(), j + 1), "openprice");
 			System.out.println("openprice" + ":" + value1.get(0));
 			data.add(value1.get(0));
-			List<String> value2 = jedis.hmget(indexcode + ":" + DateUtil.getDate(new Date(),j+1), "latestprice");
+			List<String> value2 = jedis.hmget(indexcode + ":" + DateUtil.getDate(new Date(), j + 1), "latestprice");
 			System.out.println("latestprice" + ":" + value2.get(0));
 			data.add(value2.get(0));
-			List<String> value3 = jedis.hmget(indexcode + ":" + DateUtil.getDate(new Date(),j+1), "highestprice");
+			List<String> value3 = jedis.hmget(indexcode + ":" + DateUtil.getDate(new Date(), j + 1), "highestprice");
 			System.out.println("highestprice" + ":" + value3.get(0));
 			data.add(value3.get(0));
-			List<String> value4 = jedis.hmget(indexcode + ":" + DateUtil.getDate(new Date(),j+1), "lowestprice");
+			List<String> value4 = jedis.hmget(indexcode + ":" + DateUtil.getDate(new Date(), j + 1), "lowestprice");
 			System.out.println("lowestprice" + ":" + value4.get(0));
 			data.add(value4.get(0));
 			StringBuilder sb = new StringBuilder();
@@ -54,8 +54,8 @@ public class BondStaticController {
 			result.append(str);
 			result.append(",");
 		}
-		String str_result=StringUtils.removeEnd(result.toString(), ",");
-		return str_result+"]";
+		String str_result = StringUtils.removeEnd(result.toString(), ",");
+		return str_result + "]";
 	}
 
 	@RequestMapping("/index")
@@ -117,23 +117,23 @@ public class BondStaticController {
 
 	@RequestMapping("/hisBond")
 	@ResponseBody
-	public String getHisBond(@RequestParam String bondecode, @RequestParam String days) {
-		System.err.println("indexcode=" + bondecode + ",days=" + days);
+	public String getHisBond(@RequestParam String bondcode, @RequestParam String days) {
+		System.err.println("indexcode=" + bondcode + ",days=" + days);
 		StringBuilder result = new StringBuilder();
 		result.append("[");
 		for (int j = 0; j < Integer.valueOf(days); j++) {
 			List<String> data = new ArrayList<String>();
-			data.add(DateUtil.getDate(new Date()));
-			List<String> value1 = jedis.hmget(bondecode + ":" + DateUtil.getDate(new Date(),j+1), "openprice");
+			data.add(DateUtil.getDate(new Date(), j + 1));
+			List<String> value1 = jedis.hmget(bondcode + ":" + DateUtil.getDate(new Date(), j + 1), "openprice");
 			System.out.println("openprice" + ":" + value1.get(0));
 			data.add(value1.get(0));
-			List<String> value2 = jedis.hmget(bondecode + ":" + DateUtil.getDate(new Date(),j+1), "latestprice");
+			List<String> value2 = jedis.hmget(bondcode + ":" + DateUtil.getDate(new Date(), j + 1), "latestprice");
 			System.out.println("latestprice" + ":" + value2.get(0));
 			data.add(value2.get(0));
-			List<String> value3 = jedis.hmget(bondecode + ":" + DateUtil.getDate(new Date(),j+1), "highestprice");
+			List<String> value3 = jedis.hmget(bondcode + ":" + DateUtil.getDate(new Date(), j + 1), "highestprice");
 			System.out.println("highestprice" + ":" + value3.get(0));
 			data.add(value3.get(0));
-			List<String> value4 = jedis.hmget(bondecode + ":" + DateUtil.getDate(new Date(),j+1), "lowestprice");
+			List<String> value4 = jedis.hmget(bondcode + ":" + DateUtil.getDate(new Date(), j + 1), "lowestprice");
 			System.out.println("lowestprice" + ":" + value4.get(0));
 			data.add(value4.get(0));
 			StringBuilder sb = new StringBuilder();
@@ -147,7 +147,7 @@ public class BondStaticController {
 			result.append(str);
 			result.append(",");
 		}
-		String str_result=StringUtils.removeEnd(result.toString(), ",");
-		return str_result+"]";
+		String str_result = StringUtils.removeEnd(result.toString(), ",");
+		return str_result + "]";
 	}
 }
